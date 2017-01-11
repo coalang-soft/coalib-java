@@ -1,6 +1,6 @@
-package io.github.coalangsoft.sequence;
+package io.github.coalangsoft.lib.sequence;
 
-import io.github.coalangsoft.data.Func;
+import io.github.coalangsoft.lib.data.Func;
 
 public class SequenceTool<T,S> {
 

@@ -1,8 +1,10 @@
-package io.github.coalangsoft.pattern;
+package io.github.coalangsoft.lib.pattern;
 
-import io.github.coalangsoft.data.Func;
-import io.github.coalangsoft.data.ImutablePair;
-import io.github.coalangsoft.data.Pair;
+import java.util.Arrays;
+
+import io.github.coalangsoft.lib.data.Func;
+import io.github.coalangsoft.lib.data.ImutablePair;
+import io.github.coalangsoft.lib.data.Pair;
 
 public class AbstractMatcher<T> {
 
@@ -18,6 +20,9 @@ public class AbstractMatcher<T> {
 	}
 	
 	public boolean find(Func<Pair<T,T>, Boolean> f){
+		if(toTest.length == pattern.length){
+			return matches(f);
+		}
 		baseLoop:
 		for(;index < toTest.length - pattern.length; index++){
 			for(int i = 0; i < pattern.length; i++){
@@ -32,6 +37,18 @@ public class AbstractMatcher<T> {
 		return false;
 	}
 	
+	public boolean matches(Func<Pair<T,T>, Boolean> f) {
+		if(toTest.length != pattern.length){
+			return false;
+		}
+		for(int i = 0; i < toTest.length; i++){
+			if(!f.call(new ImutablePair<T,T>(toTest[i], pattern[i]))){
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public MatchResult<T> get(){
 		if(!found){
 			throw new NoMatchException("No match found!");

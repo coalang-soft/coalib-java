@@ -1,4 +1,4 @@
-package io.github.coalangsoft.data;
+package io.github.coalangsoft.lib.data;
 
 public class ImutablePair<A,B> implements Pair<A,B>{
 

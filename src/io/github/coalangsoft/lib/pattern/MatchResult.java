@@ -1,4 +1,4 @@
-package io.github.coalangsoft.pattern;
+package io.github.coalangsoft.lib.pattern;
 
 import java.util.ArrayList;
 

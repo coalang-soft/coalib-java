@@ -1,4 +1,4 @@
-package io.github.coalangsoft.sequence;
+package io.github.coalangsoft.lib.sequence;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,6 @@
-package io.github.coalangsoft.sequence;
+package io.github.coalangsoft.lib.sequence;
+
+import io.github.coalangsoft.lib.pattern.AbstractMatcher;
 
 public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	
@@ -37,6 +39,14 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	
 	public int length(){
 		return values.length;
+	}
+	
+	public AbstractMatcher<T> matcher(T... toTest){
+		return new AbstractMatcher<T>(values, toTest);
+	}
+	
+	public AbstractMatcher<T> matcher(AbstractSequence<T, ?> toTest){
+		return matcher(toTest.values);
 	}
 	
 }

@@ -1,8 +1,8 @@
-package io.github.coalangsoft.sequence;
+package io.github.coalangsoft.lib.sequence;
 
 import java.util.Arrays;
 
-import io.github.coalangsoft.data.Func;
+import io.github.coalangsoft.lib.data.Func;
 
 public class BaseSequence<T> extends AbstractSequence<T, BaseSequence<T>> {
 
