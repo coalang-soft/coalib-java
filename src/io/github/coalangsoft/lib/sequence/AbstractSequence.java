@@ -1,11 +1,14 @@
 package io.github.coalangsoft.lib.sequence;
 
+import java.util.Arrays;
+import java.util.List;
+
 import io.github.coalangsoft.lib.pattern.AbstractMatcher;
 
 public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	
-	private T[] values;
-	private SequenceTool<T, S> tool;
+	protected T[] values;
+	protected final SequenceTool<T, S> tool;
 
 	public AbstractSequence(SequenceTool<T,S> tool, T... values){
 		this.values = values;
@@ -48,5 +51,19 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	public AbstractMatcher<T> matcher(AbstractSequence<T, ?> toTest){
 		return matcher(toTest.values);
 	}
+	
+	public boolean contains(T value){
+		for(int i = 0; i < values.length; i++){
+			if(values[i] == value){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public List<T> asList(){
+		return Arrays.asList(values);
+	}
+	
 	
 }
