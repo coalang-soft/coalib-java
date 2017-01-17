@@ -40,6 +40,14 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 		return values[index];
 	}
 	
+	public T atOrDefault(int index, T defaultValue){
+		if(length() <= index){
+			return defaultValue;
+		}else{
+			return at(index);
+		}
+	}
+	
 	public int length(){
 		return values.length;
 	}

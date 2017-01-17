@@ -1,5 +1,6 @@
 package io.github.coalangsoft.lib.sequence;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import io.github.coalangsoft.lib.data.Func;
@@ -18,6 +19,15 @@ public class BaseSequence<T> extends AbstractSequence<T, BaseSequence<T>> {
 		});
 		d.setArrayFormer(arrayFormer);
 		return d.buildTool();
+	}
+	
+	public static <T> SequenceTool<T, BaseSequence<T>> makeReflectTool(final Class<? extends T> c){
+		return makeTool(new Func<Integer, T[]>() {
+			@Override
+			public T[] call(Integer p) {
+				return (T[]) Array.newInstance(c,p);
+			}
+		});
 	}
 	
 	public static <T> BaseSequence<T> makeSequence(Func<Integer, T[]> arrayFormer, T... values){
