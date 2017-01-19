@@ -3,6 +3,7 @@ package io.github.coalangsoft.lib.sequence;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.coalangsoft.lib.data.Func;
 import io.github.coalangsoft.lib.pattern.AbstractMatcher;
 
 public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
@@ -73,5 +74,10 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 		return Arrays.asList(values);
 	}
 	
+	public void forEach(Func<T,Void> f){
+		for(int i = 0; i < length(); i++){
+			f.call(at(i));
+		}
+	}
 	
 }
