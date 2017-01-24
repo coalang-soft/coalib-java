@@ -79,5 +79,10 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 			f.call(at(i));
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "AbstractSequence [values=" + Arrays.toString(values) + "]";
+	}
 	
 }
