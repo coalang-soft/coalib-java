@@ -18,4 +18,9 @@ public class ImutablePair<A,B> implements Pair<A,B>{
 		return b;
 	}
 
+	@Override
+	public String toString() {
+		return "ImutablePair [a=" + a + ", b=" + b + "]";
+	}
+
 }
