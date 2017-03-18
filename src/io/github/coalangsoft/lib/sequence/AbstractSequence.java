@@ -1,6 +1,7 @@
 package io.github.coalangsoft.lib.sequence;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import io.github.coalangsoft.lib.data.Func;
@@ -80,6 +81,12 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 		}
 	}
 
+	public S sort(){
+		List<T> l = asList();
+		Collections.sort((List<? extends Comparable>) l);
+		return tool.form(l.toArray(tool.array(0)));
+	}
+	
 	@Override
 	public String toString() {
 		return "AbstractSequence [values=" + Arrays.toString(values) + "]";
