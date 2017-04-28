@@ -24,9 +24,9 @@ public class ModifiableSequence<T,S extends ModifiableSequence<T,S>> extends Abs
 	
 	public S link(AbstractSequence<T, ?> other, boolean duplicate){
 		if(duplicate){
-			return linkNoDup(other);
-		}else{
 			return linkDup(other);
+		}else{
+			return linkNoDup(other);
 		}
 	}
 
@@ -35,9 +35,7 @@ public class ModifiableSequence<T,S extends ModifiableSequence<T,S>> extends Abs
 		other.forEach(new Func<T,Void>(){
 			@Override
 			public Void call(T p) {
-				if(!ret.contains(p)){
-					ret.add(p);
-				}
+				ret.add(p);
 				return null;
 			}
 		});
@@ -55,6 +53,30 @@ public class ModifiableSequence<T,S extends ModifiableSequence<T,S>> extends Abs
 				return null;
 			}
 		});
+		return ret;
+	}
+
+	public T set(int index, T val){
+		T r = values[index];
+		values[index] = val;
+		return r;
+	}
+
+	public T remove(int index){
+		T[] newVals = tool.array(length() - 1);
+		T ret = null;
+		for(int i = 0; i < length(); i++){
+			if(i == index){
+				ret = newVals[index];
+			}
+			if(i < index){
+				newVals[i] = at(i);
+			}
+			if(i > index){
+				newVals[i - 1] = at(i);
+			}
+		}
+		values = newVals;
 		return ret;
 	}
 

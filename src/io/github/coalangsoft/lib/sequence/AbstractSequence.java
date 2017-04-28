@@ -13,6 +13,14 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	protected T[] values;
 	protected final SequenceTool<T, S> tool;
 
+	public S clone(){
+		return tool.form(values.clone());
+	}
+
+	public T[] toArray(){
+		return values.clone();
+	}
+
 	public AbstractSequence(SequenceTool<T,S> tool, T... values){
 		this.values = values;
 		this.tool = tool;
@@ -79,7 +87,7 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 		return matcher(toTest.values);
 	}
 	
-	public boolean contains(T value){
+	public boolean contains(Object value){
 		for(int i = 0; i < values.length; i++){
 			if(values[i].equals(value)){
 				return true;
