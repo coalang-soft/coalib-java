@@ -24,7 +24,6 @@ public class BasicSequence<T> extends AbstractSequence<T, BasicSequence<T>>{
 			}
 			
 		}), values);
-	
 	}
 
 }

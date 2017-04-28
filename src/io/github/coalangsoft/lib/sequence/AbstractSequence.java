@@ -1,5 +1,6 @@
 package io.github.coalangsoft.lib.sequence;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +16,22 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	public AbstractSequence(SequenceTool<T,S> tool, T... values){
 		this.values = values;
 		this.tool = tool;
+		if(this.values == null){
+			this.values = tool.array(0);
+		}
+	}
+	
+	public S filter(final Func<T,Boolean> filter){
+		final ArrayList<T> oks = new ArrayList<T>();
+		forEach(new Func<T, Void>() {
+			public Void call(T p) {
+				if(filter.call(p)){
+					oks.add(p);
+				}
+				return null;
+			}
+		});
+		return tool.form(oks.toArray(tool.array(0)));
 	}
 	
 	public S subSequence(int start, int end){
@@ -64,7 +81,7 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	
 	public boolean contains(T value){
 		for(int i = 0; i < values.length; i++){
-			if(values[i] == value){
+			if(values[i].equals(value)){
 				return true;
 			}
 		}
