@@ -9,7 +9,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
 
     private final Func<Void, T> func;
 
-    public AbstractDynamicValue(T val){
+    public AbstractDynamicValue(final T val){
         this(new Func<Void,T>(){
 
             @Override
@@ -31,7 +31,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
     protected abstract D instance(T v);
     protected abstract D instance(Func<Void,T> f);
 
-    public D act(Func<T,T> f){
+    public D act(final Func<T,T> f){
         return instance(new Func<Void, T>() {
             @Override
             public T call(Void aVoid) {
@@ -40,7 +40,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
         });
     }
 
-    public DynamicBoolean equ(Func<Void,T> f){
+    public DynamicBoolean equ(final Func<Void,T> f){
         return new DynamicBoolean(new Func<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
@@ -57,7 +57,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
         return this.equ(instance(a));
     }
 
-    public DynamicBoolean same(Func<Void,T> f){
+    public DynamicBoolean same(final Func<Void,T> f){
         return new DynamicBoolean(new Func<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
@@ -69,7 +69,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
         return this.same(instance(a));
     }
 
-    public DynamicBoolean bool(Func<T,Boolean> f){
+    public DynamicBoolean bool(final Func<T,Boolean> f){
         return new DynamicBoolean(new Func<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
@@ -77,7 +77,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
             }
         });
     }
-    public DynamicString str(Func<T,String> f){
+    public DynamicString str(final Func<T,String> f){
         return new DynamicString(new Func<Void, String>() {
             @Override
             public String call(Void aVoid) {
@@ -85,7 +85,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
             }
         });
     }
-    public DynamicDouble num(Func<T,Double> f){
+    public DynamicDouble num(final Func<T,Double> f){
         return new DynamicDouble(new Func<Void, Double>() {
             @Override
             public Double call(Void aVoid) {
@@ -119,7 +119,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
         });
     }
 
-    public <O> DynamicObject<O> cast(Func<T,O> f){
+    public <O> DynamicObject<O> cast(final Func<T,O> f){
         return new DynamicObject<O>(new Func<Void, O>() {
             @Override
             public O call(Void aVoid) {
@@ -132,7 +132,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
         return call(null);
     }
 
-    public <O> DynamicObject<O> _if(Func<T,Boolean> condition, Func<T,O> onIf, Func<T,O> onElse) {
+    public <O> DynamicObject<O> _if(final Func<T,Boolean> condition, final Func<T,O> onIf, final Func<T,O> onElse) {
         return new DynamicObject<O>(new Func<Void, O>() {
             @Override
             public O call(Void aVoid) {
@@ -146,7 +146,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
         });
     }
 
-    public <O> DynamicObject<O> _if(Boolean condition, Func<T,O> onIf, Func<T,O> onElse){
+    public <O> DynamicObject<O> _if(final Boolean condition, Func<T,O> onIf, Func<T,O> onElse){
         return _if(new Func<T,Boolean>(){
             @Override
             public Boolean call(T t) {
@@ -159,7 +159,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
         return new DynamicObject<O>(condition ? onIf : onElse);
     }
 
-    public <O> DynamicObject<O> _if(Func<T,Boolean> condition, O onIf, O onElse){
+    public <O> DynamicObject<O> _if(Func<T,Boolean> condition, final O onIf, final O onElse){
         return _if(condition, new Func<T,O>(){
             @Override
             public O call(T t) {

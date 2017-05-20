@@ -26,7 +26,7 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
     protected abstract boolean lssImpl(T a,T b);
     protected abstract boolean gtrImpl(T a,T b);
 
-    public D add(Func<Void,T> f){
+    public D add(final Func<Void,T> f){
         return instance(new Func<Void, T>() {
             @Override
             public T call(Void aVoid) {
@@ -34,7 +34,7 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
             }
         });
     }
-    public D sub(Func<Void,T> f){
+    public D sub(final Func<Void,T> f){
         return instance(new Func<Void, T>() {
             @Override
             public T call(Void aVoid) {
@@ -42,7 +42,7 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
             }
         });
     }
-    public D mul(Func<Void,T> f){
+    public D mul(final Func<Void,T> f){
         return instance(new Func<Void, T>() {
             @Override
             public T call(Void aVoid) {
@@ -50,7 +50,7 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
             }
         });
     }
-    public D div(Func<Void,T> f){
+    public D div(final Func<Void,T> f){
         return instance(new Func<Void, T>() {
             @Override
             public T call(Void aVoid) {
@@ -58,7 +58,7 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
             }
         });
     }
-    public D pow(Func<Void,T> f){
+    public D pow(final Func<Void,T> f){
         return instance(new Func<Void, T>() {
             @Override
             public T call(Void aVoid) {
@@ -66,7 +66,7 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
             }
         });
     }
-    public DynamicBoolean lss(Func<Void,T> f){
+    public DynamicBoolean lss(final Func<Void,T> f){
         return new DynamicBoolean(new Func<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
@@ -74,7 +74,7 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
             }
         });
     }
-    public DynamicBoolean gtr(Func<Void,T> f){
+    public DynamicBoolean gtr(final Func<Void,T> f){
         return new DynamicBoolean(new Func<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {

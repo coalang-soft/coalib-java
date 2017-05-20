@@ -33,7 +33,7 @@ public class DynamicBoolean extends AbstractDynamicValue<Boolean,DynamicBoolean>
             }
         });
     }
-    public DynamicBoolean and(Func<Void,Boolean> f){
+    public DynamicBoolean and(final Func<Void,Boolean> f){
         return new DynamicBoolean(new Func<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
@@ -41,7 +41,7 @@ public class DynamicBoolean extends AbstractDynamicValue<Boolean,DynamicBoolean>
             }
         });
     }
-    public DynamicBoolean or(Func<Void,Boolean> f){
+    public DynamicBoolean or(final Func<Void,Boolean> f){
         return new DynamicBoolean(new Func<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
@@ -50,7 +50,7 @@ public class DynamicBoolean extends AbstractDynamicValue<Boolean,DynamicBoolean>
         });
     }
 
-    public DynamicBoolean xor(Func<Void,Boolean> f){
+    public DynamicBoolean xor(final Func<Void,Boolean> f){
         return new DynamicBoolean(new Func<Void, Boolean>() {
             @Override
             public Boolean call(Void aVoid) {
