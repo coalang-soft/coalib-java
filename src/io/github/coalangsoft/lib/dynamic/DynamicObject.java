@@ -11,7 +11,7 @@ public class DynamicObject<T> extends AbstractDynamicValue<T,DynamicObject<T>>{
         super(val);
     }
 
-    public DynamicObject(Func<Void, T> func) {
+    public DynamicObject(Func<Void, ? extends T> func) {
         super(func);
     }
 

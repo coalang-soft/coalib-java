@@ -25,6 +25,7 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
     protected abstract T powImpl(T a,T b);
     protected abstract boolean lssImpl(T a,T b);
     protected abstract boolean gtrImpl(T a,T b);
+    protected abstract T modImpl(T a,T b);
 
     public D add(final Func<Void,T> f){
         return instance(new Func<Void, T>() {
@@ -82,6 +83,14 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
             }
         });
     }
+    public D mod(final Func<Void,T> f){
+        return instance(new Func<Void, T>() {
+            @Override
+            public T call(Void aVoid) {
+                return modImpl(get(),f.call(aVoid));
+            }
+        });
+    }
 
     public D add(T a){
         return this.add(instance(a));
@@ -97,6 +106,9 @@ public abstract class AbstractDynamicNumber<T extends Number, D extends Abstract
     }
     public D pow(T a){
         return this.pow(instance(a));
+    }
+    public D mod(T a){
+        return this.mod(instance(a));
     }
     public DynamicBoolean lss(T a){
         return this.lss(instance(a));

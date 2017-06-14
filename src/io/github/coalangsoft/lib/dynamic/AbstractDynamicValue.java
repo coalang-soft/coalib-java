@@ -7,7 +7,7 @@ import io.github.coalangsoft.lib.data.Func;
  */
 public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D>> implements Func<Void,T>{
 
-    private final Func<Void, T> func;
+    protected Func<Void, ? extends T> func;
 
     public AbstractDynamicValue(final T val){
         this(new Func<Void,T>(){
@@ -19,7 +19,7 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
 
         });
     }
-    public AbstractDynamicValue(Func<Void,T> func){
+    public AbstractDynamicValue(Func<Void,? extends T> func){
         this.func=func;
     }
 

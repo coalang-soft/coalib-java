@@ -60,4 +60,9 @@ public class DynamicDouble extends AbstractDynamicNumber<Double, DynamicDouble> 
         return a>b;
     }
 
+    @Override
+    protected Double modImpl(Double a, Double b) {
+        return a % b;
+    }
+
 }

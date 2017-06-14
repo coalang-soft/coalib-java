@@ -116,5 +116,5 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	public String toString() {
 		return "AbstractSequence [values=" + Arrays.toString(values) + "]";
 	}
-	
+
 }
