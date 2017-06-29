@@ -114,6 +114,9 @@ public abstract class AbstractDynamicValue<T, D extends AbstractDynamicValue<T,D
         return num(new Func<T, Double>() {
             @Override
             public Double call(T t) {
+                if(t instanceof Boolean){
+                    return ((Boolean) t).booleanValue() ? 1d : 0d;
+                }
                 return ((Number) t).doubleValue();
             }
         });

@@ -19,7 +19,7 @@ public class DynamicArray<T> extends DynamicObject<T[]>{
         this.factory = func;
     }
 
-    public static <T> DynamicArray<T> create(Func<Void, T[]> f){
+    public static <T> DynamicArray<T> create(final Func<Void, T[]> f){
         return new DynamicArray<T>(new Func<Integer, T>() {
             @Override
             public T call(Integer integer) {
@@ -28,7 +28,7 @@ public class DynamicArray<T> extends DynamicObject<T[]>{
         });
     }
 
-    public DynamicObject<T> at(DynamicDouble index){
+    public DynamicObject<T> at(final DynamicDouble index){
         if(factory != null){
             return new DynamicObject<T>(new Func<Void, T>() {
                 @Override
@@ -50,7 +50,7 @@ public class DynamicArray<T> extends DynamicObject<T[]>{
         return at(new DynamicDouble(d));
     }
 
-    public <D> DynamicArray<D> forEach(Func<T, D> f){
+    public <D> DynamicArray<D> forEach(final Func<T, D> f){
         return new DynamicArray<D>(new Func<Integer, D>() {
             @Override
             public D call(Integer integer) {
