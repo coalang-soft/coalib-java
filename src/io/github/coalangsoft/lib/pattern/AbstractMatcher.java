@@ -3,7 +3,7 @@ package io.github.coalangsoft.lib.pattern;
 import java.util.Arrays;
 
 import io.github.coalangsoft.lib.data.Func;
-import io.github.coalangsoft.lib.data.ImutablePair;
+import io.github.coalangsoft.lib.data.ImmutablePair;
 import io.github.coalangsoft.lib.data.Pair;
 
 public class AbstractMatcher<T> {
@@ -26,7 +26,7 @@ public class AbstractMatcher<T> {
 		baseLoop:
 		for(;index < toTest.length - pattern.length; index++){
 			for(int i = 0; i < pattern.length; i++){
-				if(!f.call(new ImutablePair<T,T>(pattern[i], toTest[i + index]))){
+				if(!f.call(new ImmutablePair<T,T>(pattern[i], toTest[i + index]))){
 					continue baseLoop;
 				}
 			}
@@ -42,7 +42,7 @@ public class AbstractMatcher<T> {
 			return false;
 		}
 		for(int i = 0; i < toTest.length; i++){
-			if(!f.call(new ImutablePair<T,T>(toTest[i], pattern[i]))){
+			if(!f.call(new ImmutablePair<T,T>(toTest[i], pattern[i]))){
 				return false;
 			}
 		}

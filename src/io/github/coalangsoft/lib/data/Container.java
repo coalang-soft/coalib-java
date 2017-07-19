@@ -1,40 +1,57 @@
 package io.github.coalangsoft.lib.data;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Created by Matthias on 19.04.2017.
+ * A basic value container that allows to add change listeners.
+ * @param <T> the type of the value to store.
  */
 
 public class Container<T> {
 
     private T value;
     private List<Func<Container<T>,Void>> listeners;
-    private Map<Integer, Integer> dexes = new HashMap<>();
-
+    
+    /**
+     * Creates a container with an initial value and no listeners.
+     * @param val the initial value.
+     */
     public Container(T val){
         this.value = val;
         this.listeners = new ArrayList<Func<Container<T>,Void>>();
     }
 
+    /**
+     * Adds a listener to this container. Listeners are called when {@link #setValue(Object)} is used.
+     * @param l the listener to add.
+     */
     public void addListener(Func<Container<T>, Void> l){
         listeners.add(l);
     }
 
+    /**
+     * Returns the current value of this container.
+     * @return the value.
+     */
     public T getValue(){
         return value;
     }
 
+    /**
+     * Sets the value of this container and triggers the listeners.
+     * @param val the new value.
+     * @see #addListener(Func)
+     */
     public final void setValue(T val){
         value = val;
-        update();
+        triggerListeners();
     }
 
-    private void update() {
+    /**
+     * Triggers the listeners.
+     */
+    private void triggerListeners() {
         for(int i = 0; i < listeners.size(); i++){
             listeners.get(i).call(this);
         }

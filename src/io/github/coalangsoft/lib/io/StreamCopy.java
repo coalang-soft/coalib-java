@@ -4,8 +4,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class Streams {
+/**
+ * Tool to copy an input streams values to an output stream.
+ */
+public class StreamCopy {
 	
+	/**
+	 * Copies the values from an input stream to an output stream.
+	 * @param in the input stream to copy from.
+	 * @param out the output stream to copy to.
+	 * @throws IOException if something went wrong.
+	 */
 	public static void copy(InputStream in, OutputStream out) throws IOException {
         try {
             byte[] buf = new byte[1024];
