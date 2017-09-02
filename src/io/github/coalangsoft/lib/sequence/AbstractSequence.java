@@ -117,4 +117,14 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 		return "AbstractSequence [values=" + Arrays.toString(values) + "]";
 	}
 
+	public T first(Func<T,Boolean> rule){
+		for(int i = 0; i < length(); i++){
+			T val = at(i);
+			if(rule.call(val)){
+				return val;
+			}
+		}
+		return null;
+	}
+
 }
