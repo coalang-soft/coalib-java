@@ -59,5 +59,14 @@ public class ToggleState<T> {
      * @param current the current value (after toggling)
      */
     protected void onToggle(T current){}
+    
+    public static <T extends Enum<T>> T firstDifferent(T current, T... others){
+    	for(int i = 0; i < others.length; i++){
+    		if(others[i] != current){
+    			return others[i];
+    		}
+    	}
+    	return null;
+    }
 
 }
