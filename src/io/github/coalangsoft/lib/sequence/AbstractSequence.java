@@ -3,12 +3,15 @@ package io.github.coalangsoft.lib.sequence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import io.github.coalangsoft.lib.data.Func;
 import io.github.coalangsoft.lib.pattern.AbstractMatcher;
+import io.github.coalangsoft.lib.sequence.basic.BasicModifiableSequence;
+import io.github.coalangsoft.lib.sequence.basic.BasicSequence;
 
-public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
+public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>>  implements ISequence<T,S>{
 	
 	protected T[] values;
 	protected final SequenceTool<T, S> tool;
@@ -82,9 +85,9 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 	public AbstractMatcher<T> matcher(T... toTest){
 		return new AbstractMatcher<T>(values, toTest);
 	}
-	
-	public AbstractMatcher<T> matcher(AbstractSequence<T, ?> toTest){
-		return matcher(toTest.values);
+
+	public AbstractMatcher<T> matcher(ISequence<T, ?> toTest){
+		return matcher(toTest.toArray());
 	}
 	
 	public boolean contains(Object value){
@@ -100,15 +103,34 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>> {
 		return Arrays.asList(values);
 	}
 	
-	public void forEach(Func<T,Void> f){
+	public void forEach(Func<T,?> f){
 		for(int i = 0; i < length(); i++){
 			f.call(at(i));
 		}
 	}
 
+	public <R> BasicModifiableSequence<R> forEach(Func<T,R> f, Class<R> c){
+		BasicModifiableSequence<R> s = new BasicModifiableSequence<R>(c);
+		for(int i = 0; i < length(); i++){
+			s.add(f.call(at(i)));
+		}
+		return s;
+	}
+
 	public S sort(){
 		List<T> l = asList();
 		Collections.sort((List<? extends Comparable>) l);
+		return tool.form(l.toArray(tool.array(0)));
+	}
+	
+	public S sort(final Func<T,Integer> f) {
+		List<T> l = asList();
+		Collections.sort(l, new Comparator<T>() {
+			@Override
+			public int compare(T o1, T o2) {
+				return f.call(o1) - f.call(o2);
+			}
+		});
 		return tool.form(l.toArray(tool.array(0)));
 	}
 	
