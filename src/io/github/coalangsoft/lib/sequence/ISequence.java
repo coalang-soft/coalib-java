@@ -24,7 +24,7 @@ public interface ISequence<T,S extends ISequence<T,? extends S>> {
     void forEach(Func<T,?> f);
     <R> BasicModifiableSequence<R> forEach(Func<T,R> f, Class<R> c);
     S sort();
-    S sort(Func<T,Integer> f);
+    S sort(Func<T,Long> f);
     T first(Func<T,Boolean> rule);
 
 }

@@ -123,12 +123,19 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>>  im
 		return tool.form(l.toArray(tool.array(0)));
 	}
 	
-	public S sort(final Func<T,Integer> f) {
+	public S sort(final Func<T,Long> f) {
 		List<T> l = asList();
 		Collections.sort(l, new Comparator<T>() {
 			@Override
 			public int compare(T o1, T o2) {
-				return f.call(o1) - f.call(o2);
+				long a = f.call(o1);
+				long b = f.call(o2);
+				if(a == b){
+					return 0;
+				}if(a < b){
+					return 1;
+				}
+				return -1;
 			}
 		});
 		return tool.form(l.toArray(tool.array(0)));
