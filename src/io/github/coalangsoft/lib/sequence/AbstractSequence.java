@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 import io.github.coalangsoft.lib.data.Func;
 import io.github.coalangsoft.lib.pattern.AbstractMatcher;
@@ -104,17 +106,26 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>>  im
 	}
 	
 	public void forEach(Func<T,?> f){
-		for(int i = 0; i < length(); i++){
-			f.call(at(i));
-		}
+		forEach((t) -> true, f);
 	}
 
 	public <R> BasicModifiableSequence<R> forEach(Func<T,R> f, Class<R> c){
 		BasicModifiableSequence<R> s = new BasicModifiableSequence<R>(c);
-		for(int i = 0; i < length(); i++){
-			s.add(f.call(at(i)));
-		}
+		forEach((file) -> {
+			s.add(f.call(file));
+			return null;
+		});
 		return s;
+	}
+
+	@Override
+	public void forEach(Func<T, Boolean> condition, Func<T, ?> f) {
+		for(int i = 0; i < length(); i++){
+			T t = at(i);
+			if(condition.call(t)) {
+				f.call(t);
+			}
+		}
 	}
 
 	public S sort(){
@@ -154,6 +165,35 @@ public class AbstractSequence<T, S extends AbstractSequence<T, ? extends S>>  im
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public <R> List<R> asList(Func<T, R> f) {
+		ArrayList<R> list = new ArrayList<>();
+		forEach((t) -> {
+			list.add(f.call(t));
+			return null;
+		});
+		return list;
+	}
+
+	@Override
+	public <R> List<R> asList(Func<T, Boolean> condition, Func<T, R> f) {
+		ArrayList<R> list = new ArrayList<>();
+		forEach(condition, (t) -> {
+			list.add(f.call(t));
+			return null;
+		});
+		return list;
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		return Arrays.asList(values).iterator();
+	}
+
+	public final void forEach(Consumer<? super T> c){
+		forEach((f) -> {c.accept(f); return null;});
 	}
 
 }
