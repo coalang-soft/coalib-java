@@ -26,7 +26,7 @@ public class Container<T> {
      * Adds a listener to this container. Listeners are called when {@link #setValue(Object)} is used.
      * @param l the listener to add.
      */
-    public void addListener(Func<Container<T>, Void> l){
+    public synchronized void addListener(Func<Container<T>, Void> l){
         listeners.add(l);
     }
 
@@ -34,7 +34,7 @@ public class Container<T> {
      * Returns the current value of this container.
      * @return the value.
      */
-    public T getValue(){
+    public synchronized T getValue(){
         return value;
     }
 
@@ -43,7 +43,7 @@ public class Container<T> {
      * @param val the new value.
      * @see #addListener(Func)
      */
-    public final void setValue(T val){
+    public synchronized final void setValue(T val){
         value = val;
         triggerListeners();
     }
@@ -51,7 +51,7 @@ public class Container<T> {
     /**
      * Triggers the listeners.
      */
-    private void triggerListeners() {
+    private synchronized void triggerListeners() {
         for(int i = 0; i < listeners.size(); i++){
             listeners.get(i).call(this);
         }
